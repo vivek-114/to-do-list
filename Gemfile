@@ -5,6 +5,7 @@ ruby "2.7.6"
 
 gem 'bcrypt', '~> 3.1', '>= 3.1.18'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'pry', '~> 0.14.1'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
