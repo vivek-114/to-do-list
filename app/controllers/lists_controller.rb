@@ -6,4 +6,9 @@ class ListsController < ApplicationController
 
     def index
     end
+
+    def show
+        lists = List.all
+        render json: lists
+    end
 end
