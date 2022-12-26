@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get :index, to: 'lists#index'
   resource :lists
   resource :users
+  post :login, to: 'users#login'
 end
