@@ -40,4 +40,31 @@ class UsersController < ApplicationController
         end
     end
 
+    def is_user_logged_in
+        if session[:user_id].present?
+            user = User.find(session[:user_id])
+            if user.present?
+                @current_user = user
+                render json: {
+                    status: "LoggedIn",
+                    user: user
+                }
+            else
+                render json: {
+                    status: "Failed"
+                }
+            end
+        end
+    end
+
+    def clear_session
+        reset_session
+        session.delete("user_id")
+        session["user_id"] = nil
+        session.clear
+        render json: {
+            status: "Success"
+        }
+    end
+
 end

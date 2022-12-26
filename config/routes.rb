@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resource :lists
   resource :users
   post :login, to: 'users#login'
+  get :is_user_logged_in, to: 'users#is_user_logged_in'
+  get :clear_session, to: 'users#clear_session'
 end

@@ -30,7 +30,12 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
+    # config.cache_store = :null_store
+    config.session_store :cache_store
+    config.cache_store = :memory_store, {
+      size: 64.megabytes,
+      expires_in: 12.hours
+    }
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
