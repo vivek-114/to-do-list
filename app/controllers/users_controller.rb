@@ -54,6 +54,10 @@ class UsersController < ApplicationController
                     status: "Failed"
                 }
             end
+        else
+            render json: {
+                status: "Failed"
+            }
         end
     end
 
