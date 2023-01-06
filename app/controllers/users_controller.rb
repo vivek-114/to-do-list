@@ -10,7 +10,7 @@ class UsersController < ApplicationController
             @current_user = user
             render json: {
                 status: "Created",
-                user: user
+                user: user.email
             }
         else
             render json: {
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
             @current_user = user
             render json: {
                 status: "LoggedIn",
-                user: user
+                user: user.email
             }
         else
             render json: {
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
                 @current_user = user
                 render json: {
                     status: "LoggedIn",
-                    user: user
+                    user: user.email
                 }
             else
                 render json: {
