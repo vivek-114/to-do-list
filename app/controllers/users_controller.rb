@@ -8,10 +8,13 @@ class UsersController < ApplicationController
         if user.present?
             session[:user_id] = user.id
             @current_user = user
+            # flash[:success] = "User created Successfully!"
             render json: {
                 status: "Created",
-                user: user.email
+                user: user.email,
+                flash: (session["flash"].present? &&  session["flash"]["flashes"].present?) ? {class: "success", message: "User created Successfully!"} : nil
             }
+            session["flash"] = nil if session["flash"].present?
         else
             render json: {
                 status: "Failed"
@@ -28,11 +31,14 @@ class UsersController < ApplicationController
         user = User.find_by(email: params["email"]).try(:authenticate, params["password"])
         if user.present?
             session[:user_id] = user.id
+            # flash[:success] = "Logged in successfully"
             @current_user = user
             render json: {
                 status: "LoggedIn",
-                user: user.email
+                user: user.email,
+                flash:  {class: "success", message: "Logged in Successfully"}
             }
+            session["flash"] = nil if session["flash"].present?
         else
             render json: {
                 status: "Failed"
@@ -43,12 +49,15 @@ class UsersController < ApplicationController
     def is_user_logged_in
         if session[:user_id].present?
             user = User.find(session[:user_id])
+            # binding.pry
             if user.present?
                 @current_user = user
                 render json: {
                     status: "LoggedIn",
-                    user: user.email
+                    user: user.email,
+                    flash: (session["flash"].present? &&  session["flash"]["flashes"].present?) ? {class: (session["flash"]["flashes"]).keys.first, message: (session["flash"]["flashes"]).values.first} : nil
                 }
+                session["flash"] = nil if session["flash"].present?
             else
                 render json: {
                     status: "Failed"
