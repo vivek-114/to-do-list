@@ -12,6 +12,7 @@ class UsersController < ApplicationController
             render json: {
                 status: "Created",
                 user: user.email,
+                role: user.role,
                 flash: (session["flash"].present? &&  session["flash"]["flashes"].present?) ? {class: "success", message: "User created Successfully!"} : nil
             }
             session["flash"] = nil if session["flash"].present?
@@ -36,6 +37,7 @@ class UsersController < ApplicationController
             render json: {
                 status: "LoggedIn",
                 user: user.email,
+                role: user.role,
                 flash:  {class: "success", message: "Logged in Successfully"}
             }
             session["flash"] = nil if session["flash"].present?
@@ -55,6 +57,7 @@ class UsersController < ApplicationController
                 render json: {
                     status: "LoggedIn",
                     user: user.email,
+                    role: user.role,
                     flash: (session["flash"].present? &&  session["flash"]["flashes"].present?) ? {class: (session["flash"]["flashes"]).keys.first, message: (session["flash"]["flashes"]).values.first} : nil
                 }
                 session["flash"] = nil if session["flash"].present?

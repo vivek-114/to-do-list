@@ -11,7 +11,16 @@ class ListsController < ApplicationController
     end
 
     def show
-        lists = List.all
+        lists = nil
+        if session[:user_id].present?
+            user = User.find(session[:user_id])
+            if user.role == "super_admin"
+                lists = List.all
+            else
+                lists = user.lists
+                # lists = user.lists.permit(:title, :description, :created_at, :updated_at)
+            end
+        end
         render json: lists
     end
 end
